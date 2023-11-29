@@ -2,7 +2,7 @@
 
 **fastify-session-redis-store** provides Redis session storage for [@fastify/session](https://github.com/fastify/session).
 
-NOTE: This is a fork of the original library **connect-redis** adapted to work with **@fastify/session**, all credits go to the original authors of **connect-redis**
+NOTE: This is a fork of the original library [connect-redis](https://github.com/tj/connect-redis) adapted to work with **@fastify/session**, all credits go to the original authors of **connect-redis**
 
 ## Installation
 
