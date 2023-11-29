@@ -1,10 +1,12 @@
-![Build Status](https://github.com/tj/connect-redis/workflows/build/badge.svg?branch=master) [![npm](https://img.shields.io/npm/v/connect-redis.svg)](https://npmjs.com/package/connect-redis) [![code-style](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://gitter.im/jlongster/prettier) ![Downloads](https://img.shields.io/npm/dm/connect-redis.svg)
+![Build Status](https://github.com/ctkc/fastify-session-redis-store/workflows/build/badge.svg?branch=master) [![npm](https://img.shields.io/npm/v/connect-redis.svg)](https://npmjs.com/package/connect-redis) [![code-style](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://gitter.im/jlongster/prettier) ![Downloads](https://img.shields.io/npm/dm/connect-redis.svg)
 
-**connect-redis** provides Redis session storage for Express.
+**fastify-session-redis-store** provides Redis session storage for [@fastify/session](https://github.com/fastify/session).
+
+NOTE: This is a fork of the original library **connect-redis** adapted to work with **@fastify/session**, all credits go to the original authors of **connect-redis**
 
 ## Installation
 
-**connect-redis** requires `express-session` to installed and one of the following compatible Redis clients:
+**fastify-session-redis-store** requires `@fastify/session` to installed and one of the following compatible Redis clients:
 
 - [`redis`][1]
 - [`ioredis`][2]
@@ -12,29 +14,31 @@
 Install with `redis`:
 
 ```sh
-npm install redis connect-redis express-session
+npm install redis fastify-session-redis-store @fastify/session
+yarn add redis fastify-session-redis-store @fastify/session
 ```
 
 Install with `ioredis`:
 
 ```sh
-npm install ioredis connect-redis express-session
+npm install ioredis fastify-session-redis-store @fastify/session
+yarn add ioredis fastify-session-redis-store @fastify/session
 ```
 
 ## Importing
 
-**connect-redis** supports both CommonJS (`require`) and ESM (`import`) modules.
+**fastify-session-redis-store** supports both CommonJS (`require`) and ESM (`import`) modules.
 
 Import using ESM/Typescript:
 
 ```js
-import RedisStore from "connect-redis";
+import RedisStore from "fastify-session-redis-store";
 ```
 
 Require using CommonJS:
 
 ```js
-const RedisStore = require("connect-redis").default;
+const RedisStore = require("fastify-session-redis-store").default;
 ```
 
 ## API
@@ -42,8 +46,8 @@ const RedisStore = require("connect-redis").default;
 Full setup using [`redis`][1] package:
 
 ```js
-import RedisStore from "connect-redis";
-import session from "express-session";
+import RedisStore from "fastify-session-redis-store";
+import fastifySession from "@fastify/session";
 import { createClient } from "redis";
 
 // Initialize client.
@@ -57,13 +61,12 @@ let redisStore = new RedisStore({
 });
 
 // Initialize sesssion storage.
-app.use(
-  session({
+fastify.register(fastifySession, {
     store: redisStore,
     resave: false, // required: force lightweight session keep alive (touch)
     saveUninitialized: false, // recommended: only save session when data exists
     secret: "keyboard cat",
-  }),
+  },
 );
 ```
 
@@ -81,11 +84,11 @@ Key prefix in Redis (default: `sess:`).
 
 **Note**: This prefix appends to whatever prefix you may have set on the `client` itself.
 
-**Note**: You may need unique prefixes for different applications sharing the same Redis instance. This limits bulk commands exposed in `express-session` (like `length`, `all`, `keys`, and `clear`) to a single application's data.
+**Note**: You may need unique prefixes for different applications sharing the same Redis instance. This limits bulk commands exposed in `@fastify/session` (like `length`, `all`, `keys`, and `clear`) to a single application's data.
 
 ##### ttl
 
-If the session cookie has a `expires` date, `connect-redis` will use it as the TTL.
+If the session cookie has a `expires` date, `fastify-session-redis-store` will use it as the TTL.
 
 Otherwise, it will expire the session using the `ttl` option (default: `86400` seconds or one day).
 
