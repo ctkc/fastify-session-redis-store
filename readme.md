@@ -28,13 +28,13 @@ npm install ioredis connect-redis express-session
 Import using ESM/Typescript:
 
 ```js
-import RedisStore from "connect-redis"
+import RedisStore from "connect-redis";
 ```
 
 Require using CommonJS:
 
 ```js
-const RedisStore = require("connect-redis").default
+const RedisStore = require("connect-redis").default;
 ```
 
 ## API
@@ -42,19 +42,19 @@ const RedisStore = require("connect-redis").default
 Full setup using [`redis`][1] package:
 
 ```js
-import RedisStore from "connect-redis"
-import session from "express-session"
-import {createClient} from "redis"
+import RedisStore from "connect-redis";
+import session from "express-session";
+import { createClient } from "redis";
 
 // Initialize client.
-let redisClient = createClient()
-redisClient.connect().catch(console.error)
+let redisClient = createClient();
+redisClient.connect().catch(console.error);
 
 // Initialize store.
 let redisStore = new RedisStore({
   client: redisClient,
   prefix: "myapp:",
-})
+});
 
 // Initialize sesssion storage.
 app.use(
@@ -63,8 +63,8 @@ app.use(
     resave: false, // required: force lightweight session keep alive (touch)
     saveUninitialized: false, // recommended: only save session when data exists
     secret: "keyboard cat",
-  })
-)
+  }),
+);
 ```
 
 ### RedisStore(options)
@@ -126,8 +126,8 @@ Optionally `parse` method can be async if need be.
 
 ```ts
 interface Serializer {
-  parse(string): object | Promise<object>
-  stringify(object): string
+  parse(string): object | Promise<object>;
+  stringify(object): string;
 }
 ```
 

@@ -1,13 +1,13 @@
 {
-  "name": "connect-redis",
-  "description": "Redis session store for Connect",
+  "name": "fastify-session-redis-store",
+  "description": "Redis session store for @fastify/session",
   "version": "7.1.0",
   "author": "TJ Holowaychuk <tj@vision-media.ca>",
   "contributors": [
-    "Marc Harter <wavded@gmail.com>"
+    "Marc Harter <wavded@gmail.com>",
+    "Juan Settecase <settecasejuan@gmail.com>"
   ],
   "license": "MIT",
-  "main": "./dist/esm/index.js",
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
@@ -22,13 +22,15 @@
     "test": "nyc ts-node node_modules/blue-tape/bin/blue-tape \"**/*_test.ts\"",
     "lint": "tsc --noemit && eslint --max-warnings 0 --ext ts testdata *.ts",
     "fmt": "prettier --write .",
-    "fmt-check": "prettier --check ."
+    "fmt-check": "prettier --check .",
+    "redis-server": "tsc --noemit ./testdata/redis-server.ts"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:tj/connect-redis.git"
+    "url": "git@github.com:ctkc/fastify-session-redis-store.git"
   },
   "devDependencies": {
+    "@fastify/session": "^10.6.1",
     "@types/blue-tape": "^0.1.36",
     "@types/node": "^20.10.0",
     "@typescript-eslint/eslint-plugin": "^6.13.1",
@@ -51,13 +53,13 @@
     "node": ">=16"
   },
   "bugs": {
-    "url": "https://github.com/tj/connect-redis/issues"
+    "url": "https://github.com/ctkc/fastify-session-redis-store/issues"
   },
   "keywords": [
-    "connect",
-    "redis",
+    "fastify",
     "session",
-    "express"
+    "redis",
+    "store"
   ],
   "packageManager": "yarn@4.0.2"
 }
