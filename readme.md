@@ -62,12 +62,11 @@ let redisStore = new RedisStore({
 
 // Initialize sesssion storage.
 fastify.register(fastifySession, {
-    store: redisStore,
-    resave: false, // required: force lightweight session keep alive (touch)
-    saveUninitialized: false, // recommended: only save session when data exists
-    secret: "keyboard cat",
-  },
-);
+  store: redisStore,
+  resave: false, // required: force lightweight session keep alive (touch)
+  saveUninitialized: false, // recommended: only save session when data exists
+  secret: "keyboard cat",
+});
 ```
 
 ### RedisStore(options)

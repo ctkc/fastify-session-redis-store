@@ -182,20 +182,23 @@ class RedisStore extends MemoryStore {
       if (keys.length === 0) return cb(null, []);
 
       let data = await this.client.mget(keys);
-      let results = await data.reduce<Promise<SessionData[]>>(async (acc, raw, idx) => {
-        if (!raw) {
-          return acc;
-        }
+      let results = await data.reduce<Promise<SessionData[]>>(
+        async (acc, raw, idx) => {
+          if (!raw) {
+            return acc;
+          }
 
-        let sess = await this.serializer.parse(raw);
-        
-        sess.id = keys[idx].substring(len);
-        
-        const result = await acc;
-        result.push(sess);
-        
-        return result;
-      }, Promise.resolve([]));
+          let sess = await this.serializer.parse(raw);
+
+          sess.id = keys[idx].substring(len);
+
+          const result = await acc;
+          result.push(sess);
+
+          return result;
+        },
+        Promise.resolve([]),
+      );
 
       return cb(null, results);
     } catch (err) {

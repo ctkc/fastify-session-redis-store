@@ -4,11 +4,12 @@ import { promisify } from "node:util";
 import { createClient } from "redis";
 import RedisStore from "./";
 import { Cookie } from "./testdata/cookie";
+import * as redisSrv from "./testdata/server";
 
-const port = 6379
+test("setup", redisSrv.connect);
 
 test("defaults", async (t) => {
-  let client = createClient({ url: `redis://localhost:${port}` });
+  let client = createClient({ url: `redis://localhost:${redisSrv.port}` });
   await client.connect();
 
   let store = new RedisStore({ client });
@@ -24,7 +25,7 @@ test("defaults", async (t) => {
 });
 
 test("redis", async (t) => {
-  let client = createClient({ url: `redis://localhost:${port}` });
+  let client = createClient({ url: `redis://localhost:${redisSrv.port}` });
   await client.connect();
   let store = new RedisStore({ client });
   await lifecycleTest(store, client, t);
@@ -32,11 +33,13 @@ test("redis", async (t) => {
 });
 
 test("ioredis", async (t) => {
-  let client = new Redis(`redis://localhost:${port}`);
+  let client = new Redis(`redis://localhost:${redisSrv.port}`);
   let store = new RedisStore({ client });
   await lifecycleTest(store, client, t);
   client.disconnect();
 });
+
+test("teardown", redisSrv.disconnect);
 
 async function lifecycleTest(
   store: RedisStore,
