@@ -1,0 +1,41 @@
+name: Publish Package to npmjs
+on:
+  # release:
+  #   types: [created]
+  push:
+    branches:
+      - ci/publish
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - run: sudo apt-get install -y redis-server
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install Node.js dependencies
+        run: yarn install --immutable
+
+      - name: Check code format
+        run: yarn fmt-check
+
+      - name: Lint code
+        run: yarn lint
+
+      - name: Test code
+        run: yarn test
+
+      - name: Publish
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
