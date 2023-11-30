@@ -1,4 +1,4 @@
-![Build Status](https://github.com/ctkc/fastify-session-redis-store/workflows/build/badge.svg?branch=master) [![npm](https://img.shields.io/npm/v/fastify-session-redis-store.svg)](https://npmjs.com/package/fastify-session-redis-store) [![code-style](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://gitter.im/jlongster/prettier) ![Downloads](https://img.shields.io/npm/dm/fastify-session-redis-store.svg)
+![Build Status](https://github.com/ctkc/fastify-session-redis-store/actions/workflows/build.yml/badge.svg?branch=master) [![npm](https://img.shields.io/npm/v/fastify-session-redis-store.svg)](https://npmjs.com/package/fastify-session-redis-store) [![code-style](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://gitter.im/jlongster/prettier) ![Downloads](https://img.shields.io/npm/dm/fastify-session-redis-store.svg)
 
 **fastify-session-redis-store** provides Redis session storage for [@fastify/session](https://github.com/fastify/session).
 
