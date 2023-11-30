@@ -1,4 +1,4 @@
-name: build
+name: Lint and Test
 on:
   push:
     branches:
@@ -17,7 +17,21 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - run: sudo apt-get install -y redis-server
-      - run: npm install
-      - run: npm run fmt-check
-      - run: npm run lint
-      - run: npm test
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install Node.js dependencies
+        run: yarn install --immutable
+
+      - name: Check code format
+        run: yarn fmt-check
+
+      - name: Lint code
+        run: yarn lint
+
+      - name: Test code
+        run: yarn test
+
+      - name: Build
+        run: yarn build
