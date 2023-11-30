@@ -14,3 +14,7 @@ dist/cjs/testdata
 dist/cjs/index_test*
 dist/esm/testdata
 dist/esm/index_test*
+
+.github
+.husky
+.lintstagedrc.js
