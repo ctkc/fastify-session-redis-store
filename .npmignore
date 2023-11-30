@@ -15,6 +15,12 @@ dist/cjs/index_test*
 dist/esm/testdata
 dist/esm/index_test*
 
+index_test.ts
+
 .github
 .husky
 .lintstagedrc.js
+.eslintrc
+.prettierrc
+tsconfig.esm.json
+tsconfig.json
