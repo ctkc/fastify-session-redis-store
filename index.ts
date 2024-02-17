@@ -1,6 +1,6 @@
 import { MemoryStore } from "@fastify/session";
 
-interface SessionData {
+export interface SessionData {
   id?: string;
   cookie: {
     originalMaxAge: number | null;
@@ -15,8 +15,6 @@ interface SessionData {
   };
 }
 
-const noop = (_err?: unknown, _data?: any) => {};
-
 interface NormalizedRedisClient {
   get(key: string): Promise<string | null>;
   set(key: string, value: string, ttl?: number): Promise<string | null>;
@@ -26,12 +24,12 @@ interface NormalizedRedisClient {
   mget(key: string[]): Promise<(string | null)[]>;
 }
 
-interface Serializer {
+export interface Serializer {
   parse(s: string): SessionData | Promise<SessionData>;
   stringify(s: SessionData): string;
 }
 
-interface RedisStoreOptions {
+export interface RedisStoreOptions {
   client: any;
   prefix?: string;
   scanCount?: number;
@@ -41,7 +39,9 @@ interface RedisStoreOptions {
   disableTouch?: boolean;
 }
 
-class RedisStore extends MemoryStore {
+const noop = (_err?: unknown, _data?: any) => {};
+
+export class RedisStore extends MemoryStore {
   client: NormalizedRedisClient;
   prefix: string;
   scanCount: number;
